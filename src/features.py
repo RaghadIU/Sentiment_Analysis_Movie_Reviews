@@ -1,11 +1,18 @@
+import os
 import pandas as pd
 import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 def extract_features():
-    train_df = pd.read_csv("data/processed/train_clean.csv")
-    test_df = pd.read_csv("data/processed/test_clean.csv")
+
+    BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+    train_path = os.path.join(BASE_DIR, "data/processed/train_clean.csv")
+    test_path  = os.path.join(BASE_DIR, "data/processed/test_clean.csv")
+
+    train_df = pd.read_csv(train_path)
+    test_df = pd.read_csv(test_path)
 
     vectorizer = TfidfVectorizer(
         max_features=5000,
@@ -18,7 +25,7 @@ def extract_features():
     y_train = train_df['sentiment']
     y_test = test_df['sentiment']
 
-    joblib.dump(vectorizer, "models/tfidf_vectorizer.pkl")
+    joblib.dump(vectorizer, os.path.join(BASE_DIR, "models/tfidf_vectorizer.pkl"))
 
     return X_train, X_test, y_train, y_test
 

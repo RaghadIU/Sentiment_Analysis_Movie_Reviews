@@ -1,4 +1,4 @@
-Accuracy: 0.84868
+Naive_Bayes Accuracy: 0.84868
 
 Classification Report:
               precision    recall  f1-score   support
